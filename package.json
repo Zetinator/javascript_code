@@ -1,0 +1,30 @@
+{
+  "name": "javascript_code",
+  "version": "1.0.0",
+  "description": "an anthology of algorithms and data structures on javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zetinator/javascript_code.git"
+  },
+  "keywords": [
+    "data-structures",
+    "algorithms",
+    "javascript"
+  ],
+  "author": "zetinator",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zetinator/javascript_code/issues"
+  },
+  "homepage": "https://github.com/Zetinator/javascript_code#readme",
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "babel-jest": "^26.3.0",
+    "jest": "^26.3.0"
+  }
+}
