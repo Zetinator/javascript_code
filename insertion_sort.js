@@ -4,7 +4,7 @@
 * @param {Array} arr - array to be sorted
 * @return {Array} sorted array
 */
-function select_sort(arr = []) {
+function insertion_sort(arr = []) {
     if (!arr?.length) return arr;
     for (let i = 0; i < arr.length - 1; i++) {
         let pivot = i + 1;
@@ -17,4 +17,4 @@ function select_sort(arr = []) {
     return arr;
 };
 
-export default select_sort;
+export default insertion_sort;
