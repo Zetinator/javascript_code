@@ -9,7 +9,7 @@ function merge_sort(arr = []) {
     function recurse(sub_arr = []) {
         if (!sub_arr?.length || sub_arr.length < 2) return sub_arr;
         // divide
-        let m = parseInt(sub_arr.length / 2)
+        let m = Math.trunc(sub_arr.length / 2)
         let [left, right] = [recurse(sub_arr.slice(0, m)), recurse(sub_arr.slice(m,))];
         // conquer
         let [l, r, tmp] = [0, 0, []]

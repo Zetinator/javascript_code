@@ -9,7 +9,7 @@ function quick_sort(arr = []) {
     function recurse(sub_arr = [], l = 0) {
         if (!sub_arr?.length || sub_arr.length < 2) return sub_arr;
         // choose a good pivot -> randomly
-        let pivot = parseInt(Math.random() * (sub_arr.length));
+        let pivot = Math.trunc(Math.random() * (sub_arr.length));
         // divide
         let [left, right] = [[], []];
         for (let [i, e] of sub_arr.entries()) {
