@@ -24,5 +24,5 @@ test('test remove method', () => {
     // remove from the end
     ll.remove('marion');
     expect(ll.toString()).toStrictEqual("(sophia)");
-    expect(ll.tail === ll.tail).toStrictEqual(true);
+    expect(ll.tail === ll.head).toStrictEqual(true);
 });
