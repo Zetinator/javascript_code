@@ -19,10 +19,10 @@ test('test find method', () => {
 test('test remove method', () => {
     let ll = new LinkedList(['erick', 'sophia', 'marion']);
     // remove from the begining
-    ll.remove('erick')
+    ll.remove('erick');
     expect(ll.toString()).toStrictEqual("(sophia)->(marion)");
     // remove from the end
-    ll.remove('marion')
+    ll.remove('marion');
     expect(ll.toString()).toStrictEqual("(sophia)");
     expect(ll.tail === ll.tail).toStrictEqual(true);
 });
