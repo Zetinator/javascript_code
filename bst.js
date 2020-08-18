@@ -152,7 +152,7 @@ class BST {
         function traverse(node, l = 0) {
             if (!node) return;
             traverse(node.right, l + 1);
-            output.push(`${Array(l).fill('\t').join('')}-> (${node.value})`);
+            output.push(`${Array(l).fill('\t').join('')}-->(${node.value})`);
             traverse(node.left, l + 1);
         }
         traverse(this.root);
