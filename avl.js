@@ -1,3 +1,4 @@
+import BST from "./bst";
 /**
 * The classical node structure for the double linked tree
 */
@@ -6,22 +7,52 @@ class Node {
         this.value = value;
         this.left = null;
         this.right = null;
+        this.weight = 1;
     }
 }
 /**
 * The classical single linked tree
+* @extends BST
 */
-class BST {
+class AVL extends BST{
     /** 
     * Builds the linked tree from an iterable collection
     * @param {*} value the value to look for
     */
     constructor(arr = []) {
-        this.root = null;
-        // build the linked tree from the arr
-        for (let e of arr) {
-            this.insert(e);
-        }
+        super(arr);
+    }
+    /** 
+    * standard right rotation: https://en.wikipedia.org/wiki/AVL_tree#Simple_rotation
+    * @param {Node} node the node used as pivot
+    */
+    rotate_right(node) {
+        if (!node) return;
+        let tmp = new Node(node.value);
+        [tmp.left, tmp.right] = [node.left.right, node.right];
+        // rotate around pivot
+        node.value = node.left.value;
+        [node.left, node.right] = [node.left.left, tmp];
+        // update weights
+        let compute_weight = (node) => node ? node.weight: 0;
+        node.right.weight = Math.max(compute_weight(node.right.left), compute_weight(node.right.right)) + 1;
+        node.weight = Math.max(compute_weight(node.left), compute_weight(node.right)) + 1;
+    }
+    /** 
+    * standard left rotation: https://en.wikipedia.org/wiki/AVL_tree#Simple_rotation
+    * @param {Node} node the node used as pivot
+    */
+    rotate_left(node) {
+        if (!node) return;
+        let tmp = new Node(node.value);
+        [tmp.left, tmp.right]  = [node.left, node.right.left];
+        // rotate around pivot
+        node.value = node.right.value;
+        [node.left, node.right] = [tmp, node.right.right];
+        // update weights
+        let compute_weight = (node) => node ? node.weight: 0;
+        node.left.weight = Math.max(compute_weight(node.left.left), compute_weight(node.left.right)) + 1;
+        node.weight = Math.max(compute_weight(node.left), compute_weight(node.right)) + 1;
     }
     /** 
     * Inserts a new node with the given value to the start of the tree
@@ -35,7 +66,7 @@ class BST {
             return;
         }
         // general case:
-        function recurse(node = null) {
+        let recurse = (node = null) => {
             if (!node) return;
             if (value === node.value) throw `${value}? no repetitions allowed!`;
             if (value < node.value) {
@@ -46,32 +77,25 @@ class BST {
                 if (node.right) recurse(node.right);
                 else node.right = new Node(value);
             }
+            // update weights
+            let compute_weight = (node) => node ? node.weight: 0;
+            node.weight = Math.max(compute_weight(node.left), compute_weight(node.right)) + 1;
+            // repair violations
+            let balance = compute_weight(node.right) - compute_weight(node.left);
+            // left case
+            if (balance < -1) {
+                // croocked?
+                if (value > node.left.value) this.rotate_left(node.left);
+                this.rotate_right(node);
+            }
+            // right case
+            if (balance > 1) {
+                // croocked?
+                if (value < node.right.value) this.rotate_right(node.right);
+                this.rotate_left(node);
+            }
         }
         return recurse(this.root);
-    }
-    /** 
-    * standard right rotation: https://en.wikipedia.org/wiki/AVL_tree#Simple_rotation
-    * @param {Node} node the node used as pivot
-    */
-    rotate_right(node) {
-        if (!node) return;
-        let tmp = new Node(node.value);
-        [tmp.left, tmp.right] = [node.left.right, node.right];
-        // rotate around pivot
-        node.value = node.left.value;
-        [node.left, node.right] = [node.left.left, tmp];
-    }
-    /** 
-    * standard left rotation: https://en.wikipedia.org/wiki/AVL_tree#Simple_rotation
-    * @param {Node} node the node used as pivot
-    */
-    rotate_left(node) {
-        if (!node) return;
-        let tmp = new Node(node.value);
-        [tmp.left, tmp.right]  = [node.left, node.right.left];
-        // rotate around pivot
-        node.value = node.right.value;
-        [node.left, node.right] = [tmp, node.right.right];
     }
     /** 
     * Removes the node containing the value from the tree
@@ -122,42 +146,6 @@ class BST {
         }
         return move_till_leaf(node, parent);
     }
-    /** 
-    * Returns the node from the tree containing the given value
-    * @param {*} value the value to look for
-    * @return {?Node} the node containing the value if found...
-    */
-    find(value) {
-        if (!this.root) return null;
-        // traverse the tree looking for the value
-        function recurse(node = null) {
-            if (!node) return null;
-            if (value === node.value) return node;
-            if (value < node.value) {
-                return recurse(node.left);
-            }
-            else {
-                return recurse(node.right);
-            }
-        }
-        return recurse(this.root);
-    }
-    /** 
-    * Returns a string representation of the values from the linked tree
-    * @return {string} the node containing the value if found...
-    */
-    toString() {
-        if (!this.root) return '';
-        let output = []
-        function traverse(node, l = 0) {
-            if (!node) return;
-            traverse(node.right, l + 1);
-            output.push(`${Array(l).fill('\t').join('')}-> (${node.value})`);
-            traverse(node.left, l + 1);
-        }
-        traverse(this.root);
-        return output.join('\n');
-    }
 }
 
-export default BST;
+export default AVL;
