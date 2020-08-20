@@ -123,6 +123,82 @@ class BST {
         return move_till_leaf(node, parent);
     }
     /** 
+    * Returns the node from the tree containing the max value
+    * @return {?Node} the node containing the max value if found...
+    */
+    max() {
+        if (!this.root) return null;
+        let node = this.root;
+        while (node.right) {
+            node = node.right;
+        }
+        return node;
+    }
+    /** 
+    * Returns the node from the tree containing the min value
+    * @return {?Node} the node containing the min value if found...
+    */
+    min() {
+        if (!this.root) return null;
+        let node = this.root;
+        while (node.left) {
+            node = node.left;
+        }
+        return node;
+    }
+    /** 
+    * Returns the node from the tree containing the successor of the given value
+    * @param {*} value the value to look for
+    * @return {?Node} the node containing the successor of the given value if found...
+    */
+    successor(value) {
+        if (!this.root) return null;
+        // traverse the tree looking for the value
+        function recurse(node = null, checkpoint = null) {
+            if (!node) return [node, checkpoint];
+            if (value === node.value) return [node, checkpoint];
+            if (value < node.value) {
+                return recurse(node.left, node);
+            }
+            else {
+                return recurse(node.right, checkpoint);
+            }
+        }
+        let [node, checkpoint] = recurse(this.root);
+        if (!node || !node.right) return checkpoint;
+        node = node.right;
+        while (node.left) {
+            node = node.left;
+        }
+        return node;
+    }
+    /** 
+    * Returns the node from the tree containing the predecessor of the given value
+    * @param {*} value the value to look for
+    * @return {?Node} the node containing the predecessor of the given value if found...
+    */
+    predecessor(value) {
+        if (!this.root) return null;
+        // traverse the tree looking for the value
+        function recurse(node = null, checkpoint = null) {
+            if (!node) return [node, checkpoint];
+            if (value === node.value) return [node, checkpoint];
+            if (value < node.value) {
+                return recurse(node.left, checkpoint);
+            }
+            else {
+                return recurse(node.right, node);
+            }
+        }
+        let [node, checkpoint] = recurse(this.root);
+        if (!node || !node.left) return checkpoint;
+        node = node.left;
+        while (node.right) {
+            node = node.right;
+        }
+        return node;
+    }
+    /** 
     * Returns the node from the tree containing the given value
     * @param {*} value the value to look for
     * @return {?Node} the node containing the value if found...
