@@ -97,55 +97,6 @@ class AVL extends BST{
         }
         return recurse(this.root);
     }
-    /** 
-    * Removes the node containing the value from the tree
-    * We find the value, and then rotate the node until it becomes a leaf
-    * @param {*} value the value to look for
-    * @return {?Node} the node containing the value if found...
-    */
-    remove(value) {
-        if (value == null || !this.root) return null;
-        // find the node
-        let fetch = (node = null, parent = null) => {
-            if (!node) return [node, parent];
-            if (value === node.value) return [node, parent];
-            if (value < node.value) {
-                return fetch(node.left, node);
-            }
-            else {
-                return fetch(node.right, node);
-            }
-        }
-        let [node, parent] = fetch(this.root, null);
-        // not found... we are done
-        if (!node) return node;
-        // rotate the node found until it becomes a leaf... then erasing is trivial
-        let move_till_leaf = (node = null, parent = null) => {
-            if (!node) return node;
-            // erase when leaf
-            if (!node.left && !node.right){
-                // special case: is the head
-                if (!parent) {
-                    this.root = null;
-                    return node;
-                }
-                if (node == parent.right) parent.right = null;
-                else parent.left = null;
-                return node;
-            }
-            // rotate until it becomes a leaf
-            if (!node.left) {
-                this.rotate_left(node);
-                return move_till_leaf(node.left, node);
-            }
-            else {
-                this.rotate_right(node);
-                return move_till_leaf(node.right, node);
-            }
-            
-        }
-        return move_till_leaf(node, parent);
-    }
 }
 
 export default AVL;
