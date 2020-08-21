@@ -29,6 +29,7 @@ class LinkedList {
     * @return {?Node} the node containing the value if found...
     */
     append(value) {
+        if (value == null) return;
         // trivial case: empty list
         if (!this.head) {
             this.head = new Node(value);

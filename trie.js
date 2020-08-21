@@ -1,53 +1,50 @@
-import BST from "./bst";
 /**
 * The classical node structure for the double linked tree
 */
 class Node {
     constructor(value = null) {
         this.value = value;
-        this.left = null;
-        this.right = null;
+        this.children = new Map();
     }
 }
 /**
 * The classical single linked tree
-* @extends BST
 */
-class Splay extends BST{
+class Trie {
     /** 
     * Builds the linked tree from an iterable collection
     * @param {*} value the value to look for
     */
     constructor(arr = []) {
-        super(arr);
+        this.root = null;
+        for (let e of arr) {
+            this.insert(e);
+        }
     }
     /** 
     * Inserts a new node with the given value to the start of the tree
-    * @param {*} value the value to look for
+    * @param {*} value the to insert, (must be iterable)
     * @return {?Node} the node containing the value if found...
     */
     insert(value) {
-        // trivial case: empty tree
+        if (!value) return;
+        // trivial case: empty trie
         if (!this.root) {
-            this.root = new Node(value);
-            return;
+            this.root = new Node();
         }
         // general case:
-        let recurse = (node = null) => {
-            if (!node) return;
-            if (value === node.value) throw `${value}? no repetitions allowed!`;
-            if (value < node.value) {
-                if (node.left) recurse(node.left, node);
-                else node.left = new Node(value);
-                this.rotate_right(node);
+        let node = this.root;
+        for (let e of value) {
+            if (node.children.has(e)) {
+                node = node.children.get(e);
             }
             else {
-                if (node.right) recurse(node.right, node);
-                else node.right = new Node(value);
-                this.rotate_left(node);
+                node.children.set(e, new Node());
+                node = node.children.get(e);
             }
         }
-        return recurse(this.root);
+        // we reached a leaf... update the value
+        node.value = value;
     }
     /** 
     * Returns the node from the tree containing the given value
@@ -55,24 +52,39 @@ class Splay extends BST{
     * @return {?Node} the node containing the value if found...
     */
     find(value) {
-        if (!this.root) return null;
-        // traverse the tree looking for the value
-        let recurse = (node = null) => {
-            if (!node) return null;
-            if (value === node.value) return node;
-            if (value < node.value) {
-                let tmp = recurse(node.left);
-                this.rotate_right(node);
-                return tmp;
+        if(!this.root) return null;
+        // traverse the trie looking for the value
+        let node = this.root;
+        for (let e of value) {
+            if (node.children.has(e)) {
+                node = node.children.get(e);
             }
-            else {
-                let tmp = recurse(node.right);
-                this.rotate_left(node);
-                return tmp;
+            if (node && value == node.value) return node;
+        }
+        return null;
+    }
+    /** 
+    * Returns a string representation of the values from the linked tree
+    * @return {string} the node containing the value if found...
+    */
+    toString() {
+        if (!this.root) return '';
+        let output = []
+        function traverse(node, l = 0) {
+            // if we are in a leaf we are document...
+            if (node.value || node.children.size === 0) {
+                output.push(`\n${Array(l).fill('\t').join('')}${node.value}`);
+            }
+            // explore the children
+            for (let [k, child] of node.children.entries()){
+                output.push(`-(${k})`);
+                traverse(child, l + 1);
+                output.push(`\n${Array(l).fill('\t').join('')}`);
             }
         }
-        return recurse(this.root);
+        traverse(this.root);
+        return output.join('');
     }
 }
 
-export default Splay;
+export default Trie;

@@ -29,6 +29,7 @@ class BST {
     * @return {?Node} the node containing the value if found...
     */
     insert(value) {
+        if (value == null) return;
         // trivial case: empty tree
         if (!this.root) {
             this.root = new Node(value);

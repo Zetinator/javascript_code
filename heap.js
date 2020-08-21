@@ -40,6 +40,7 @@ class Heap {
     * @param {*} value the value to look for
     */
     push(value) {
+        if (value == null) return;
         let i = this._core.length;
         this._core.push(value);
         // auxiliar function to get the parent
