@@ -13,10 +13,11 @@ test('test find method', () => {
     expect(trie.find('erick').value).toStrictEqual('erick');
 });
 test('test remove method', () => {
-    let trie = new Trie(['erick', 'sophia', 'marion']);
+    let trie = new Trie(['erika', 'erick', 'sophia', 'marion']);
     // remove from the begining
-    //expect(trie.remove('erick').value).toStrictEqual('erick');
-    //expect(trie.remove('sophia').value).toStrictEqual('sophia');
-    //expect(trie.remove('marion').value).toStrictEqual('marion');
-    //expect(trie.toString()).toStrictEqual("");
+    trie.remove('erika');
+    trie.remove('erick');
+    trie.remove('sophia');
+    trie.remove('marion');
+    expect(trie.toString()).toStrictEqual("");
 });

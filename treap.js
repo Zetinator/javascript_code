@@ -84,7 +84,7 @@ class Treap extends BST{
                 if (node == parent.right) this.rotate_left(parent);
                 else this.rotate_right(parent);
             }
-        }
+        };
         return recurse(this.root);
     }
     /** 
@@ -105,7 +105,7 @@ class Treap extends BST{
             else {
                 return fetch(node.right, node);
             }
-        }
+        };
         let [node, parent] = fetch(this.root, null);
         // not found... we are done
         if (!node) return node;
@@ -133,7 +133,7 @@ class Treap extends BST{
                 return move_till_leaf(node.right, node);
             }
             
-        }
+        };
         return move_till_leaf(node, parent);
     }
 }

@@ -47,7 +47,7 @@ class Splay extends BST{
                 else node.right = new Node(value);
                 this.rotate_left(node);
             }
-        }
+        };
         return recurse(this.root);
     }
     /** 
@@ -71,7 +71,7 @@ class Splay extends BST{
                 this.rotate_left(node);
                 return tmp;
             }
-        }
+        };
         return recurse(this.root);
     }
 }

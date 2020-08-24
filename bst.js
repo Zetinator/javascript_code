@@ -92,7 +92,7 @@ class BST {
             else {
                 return fetch(node.right, node);
             }
-        }
+        };
         let [node, parent] = fetch(this.root, null);
         // not found... we are done
         if (!node) return node;
@@ -120,7 +120,7 @@ class BST {
                 return move_till_leaf(node.right, node);
             }
             
-        }
+        };
         return move_till_leaf(node, parent);
     }
     /** 

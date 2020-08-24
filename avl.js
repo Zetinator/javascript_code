@@ -95,7 +95,7 @@ class AVL extends BST{
                 if (value < node.right.value) this.rotate_right(node.right);
                 this.rotate_left(node);
             }
-        }
+        };
         return recurse(this.root);
     }
 }
