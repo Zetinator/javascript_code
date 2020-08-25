@@ -1,5 +1,5 @@
 /**
-* The classical node structure for the double linked tree
+* The classical node structure
 */
 class Node {
     constructor(value = null) {
@@ -9,7 +9,7 @@ class Node {
     }
 }
 /**
-* The classical single linked tree
+* https://en.wikipedia.org/wiki/Binary_search_tree
 */
 class BST {
     /** 

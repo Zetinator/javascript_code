@@ -1,5 +1,6 @@
 /**
-* The classical node structure for the double linked tree
+* The classical node structure for the segment_tree
+* https://en.wikipedia.org/wiki/Segment_tree
 */
 class Node {
     constructor(value = null, range = []) {
@@ -10,7 +11,7 @@ class Node {
     }
 }
 /**
-* The classical single linked tree
+* https://en.wikipedia.org/wiki/Segment_tree
 */
 class SegmentTree {
     /** 
