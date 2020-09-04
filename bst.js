@@ -119,7 +119,6 @@ class BST {
                 this.rotate_right(node);
                 return move_till_leaf(node.right, node);
             }
-            
         };
         return move_till_leaf(node, parent);
     }
