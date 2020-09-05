@@ -7,7 +7,7 @@ class Heap {
     * @param {*} value the value to look for
     */
     constructor(arr = []) {
-        this._core = arr;
+        this._core = [...arr];
         // repair the arr (floyd's algorithm)
         for (let i = Math.trunc(arr.length / 2); i >= 0; i--) {
             this.sift_down(i);

@@ -1,7 +1,7 @@
 /**
 * https://en.wikipedia.org/wiki/Graph_(abstract_data_type)
 */
-class UGraph {
+class WGraph {
     /** 
     * Builds the linked tree from an adjacency list https://en.wikipedia.org/wiki/Adjacency_list
     * @param {Map} graph adjacent list upon we'll build the graph
@@ -11,9 +11,9 @@ class UGraph {
         this.nodes = new Set();
         // change list -> set to speed up the is_neighbor function to O(1)
         for (let [k, v] of graph.entries()) {
-            let tmp = new Set();
-            for (let item of v) {
-                tmp.add(item);
+            let tmp = new Map()
+            for (let [node, edge] of v) {
+                tmp.set(node, edge);
             }
             this.inner_graph.set(k, tmp);
             this.nodes.add(k);
@@ -29,11 +29,20 @@ class UGraph {
     /** 
     * gets array of adjacent nodes (neighbors) from the given node
     * @param {*} node the value of the node to look for
-    * @return {?Set} the node containing the value if found...
+    * @return {?Map} the node containing the value if found...
     */
     neighbors(node) {
         if (!this.inner_graph.has(node)) return null;
         return this.inner_graph.get(node);
+    }
+    /** 
+    * gets array of adjacent nodes (neighbors) from the given node
+    * @param {*} node the value of the node to look for
+    * @return {?Map} the node containing the value if found...
+    */
+    weight(n_1 = null, n_2 = null) {
+        if (!this.inner_graph.has(n_1)) return null;
+        return this.inner_graph.get(n_1).get(n_2) || null;
     }
     /** 
     * boolean are n_1 and n_2 neighbors
@@ -47,4 +56,4 @@ class UGraph {
     }
 }
 
-export default UGraph;
+export default WGraph;
