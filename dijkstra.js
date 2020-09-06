@@ -79,9 +79,9 @@ class Heap {
 */
 function dijkstra(w_graph = new Map(), source = null, target = null) {
     if (w_graph.inner_graph.size == 0) return [];
-    // calls to the actual dijkstra
     let parents = new Map();
     let heap = new Heap([[0, source, null]]);
+    // the actual dijkstra
     let r_dijkstra = () => {
         while (heap._core.length > 0) {
             let [distance, node, parent] = heap.pop();

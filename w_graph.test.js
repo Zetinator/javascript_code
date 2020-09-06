@@ -33,8 +33,10 @@ test('test get neighbors', () => {
     expect(w_graph.neighbors('a')).toStrictEqual(expected);
 });
 test('test get weight', () => {
+    // connected
     expect(w_graph.weight('a', 'c')).toStrictEqual(1);
-    expect(w_graph.weight('a', 'e')).toStrictEqual(null);
+    // not connected
+    expect(w_graph.weight('a', 'e')).toStrictEqual(Infinity);
 });
 test('test are neighbors', () => {
     expect(w_graph.are_neighbors('a', 'c')).toStrictEqual(true);
