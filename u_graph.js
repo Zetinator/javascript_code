@@ -32,8 +32,8 @@ class UGraph {
     * @return {?Set} the node containing the value if found...
     */
     neighbors(node) {
-        if (!this.inner_graph.has(node)) return null;
-        return this.inner_graph.get(node);
+        if (!this.inner_graph.has(node)) return [];
+        return this.inner_graph.get(node) || [];
     }
     /** 
     * boolean are n_1 and n_2 neighbors
@@ -43,7 +43,7 @@ class UGraph {
     */
     are_neighbors(n_1 = null, n_2 = null) {
         if (!this.inner_graph.has(n_1) || !this.inner_graph.has(n_2)) return false;
-        return this.inner_graph.get(n_1).has(n_2) || this.inner_graph.get(n_2).has(n_1);
+        return this.inner_graph.get(n_1).has(n_2) || this.inner_graph.get(n_2).has(n_1) || false;
     }
 }
 
