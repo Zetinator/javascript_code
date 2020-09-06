@@ -1,27 +1,30 @@
-import dfs from "./dfs";
-import UGraph from "./u_graph";
+import {bisect_left, bisect_right, default as bs} from "./bs";
 
-test('create a dfs from an empty collection', () => {
-    let u_graph = new UGraph(new Map());
-    expect(dfs(u_graph)).toStrictEqual([]);
+test('search value on empty array', () => {
+    let e = [];
+    expect(bs(e, 3)).toStrictEqual(false);
 });
-// https://en.wikipedia.org/wiki/Petersen_graph
-let tmp = new Map();
-tmp.set('a', ['f', 'd', 'c']);
-tmp.set('b', ['e', 'd', 'g']);
-tmp.set('c', ['h', 'e', 'a']);
-tmp.set('d', ['i', 'a', 'b']);
-tmp.set('e', ['j', 'b', 'c']);
-tmp.set('f', ['j', 'a', 'g']);
-tmp.set('g', ['f', 'b', 'a']);
-tmp.set('h', ['g', 'c', 'i']);
-tmp.set('i', ['d', 'i', 'h']);
-tmp.set('j', ['f', 'e', 'i']);
-tmp.set('m', ['n']);
-tmp.set('n', ['m']);
-// build our graph
-let u_graph = new UGraph(tmp);
-// test on this graph
-test('find all connected components from petersen graph + 2 unconnected', () => {
-    expect(JSON.stringify(dfs(u_graph))).toStrictEqual('[["a","f","j","e","b","d","i","h","g","c"],["m","n"]]');
+test('search value on array not found', () => {
+    let e = [1, 2, 3, 3, 3, 3, 4, 5];
+    expect(bs(e, 9)).toStrictEqual(false);
+});
+test('try to search a value over an array', () => {
+    let e = [1, 2, 3, 3, 3, 3, 4, 5];
+    expect(bs(e, 3)).toStrictEqual(true);
+});
+test('try to search a value over an array', () => {
+    let e = [1, 2, 3, 3, 3, 3, 4, 5];
+    expect(bisect_left(e, 3)).toStrictEqual(2);
+});
+test('try to search a value over an array', () => {
+    let e = [1, 2, 3, 3, 3, 3, 4, 5];
+    expect(bisect_right(e, 3)).toStrictEqual(6);
+});
+test('try to search a value over array not found', () => {
+    let e = [1, 2, 3, 3, 3, 3, 4, 5];
+    expect(bisect_right(e, 0)).toStrictEqual(0);
+});
+test('try to search a value over array not found', () => {
+    let e = [1, 2, 3, 3, 3, 3, 4, 5];
+    expect(bisect_right(e, 10)).toStrictEqual(e.length);
 });
