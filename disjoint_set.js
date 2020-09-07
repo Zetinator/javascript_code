@@ -13,6 +13,7 @@ class DisjointSet {
     /** 
     * https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Finding_set_representatives
     * @param {*} value value to look for
+    * @return {*} returns the highest parent of the node
     */
     find(value) {
         let fetch = (key) => {

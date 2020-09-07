@@ -4,9 +4,7 @@ import WGraph from './w_graph'
 * this function will explore and find the shortest path between a source node and a target
 * @summary https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 * @param {WGraph} graph graph to explore
-* @param {value} source source node to start looking from
-* @param {target} target node to trace the shortest path to
-* @return {Array} array with the path and the minimum cost [path, cost]
+* @return {Map} map with all the distances from all nodes to all the nodes
 */
 function floyd_warshall(w_graph = new Map()) {
     if (w_graph.inner_graph.size == 0) return [];
