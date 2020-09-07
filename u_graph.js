@@ -3,8 +3,10 @@
 */
 class UGraph {
     /** 
-    * Builds the linked tree from an adjacency list https://en.wikipedia.org/wiki/Adjacency_list
-    * @param {Map} graph adjacent list upon we'll build the graph
+    * Builds the graph from an adjacent list
+    * @summary https://en.wikipedia.org/wiki/Adjacency_list
+    * @param {Map} graph graph in a Map-like format
+    * @return {?Set} set with all the neighbors found for this node
     */
     constructor(graph = new Map()) {
         this.inner_graph = new Map();
@@ -20,26 +22,21 @@ class UGraph {
         }
     }
     /** 
-    * gets array of adjacent nodes (neighbors) from the given node
-    * @return {?Set} the node containing the value if found...
-    */
-    nodes() {
-        return this.nodes;
-    }
-    /** 
-    * gets array of adjacent nodes (neighbors) from the given node
-    * @param {*} node the value of the node to look for
-    * @return {?Set} the node containing the value if found...
+    * Fetch all the neighbors from the given node
+    * @summary returns a set of all the adjacent nodes of the given input node
+    * @param {*} node node to look for its neighbors
+    * @return {?Set} set with all the neighbors found for this node
     */
     neighbors(node) {
         if (!this.inner_graph.has(node)) return [];
         return this.inner_graph.get(node) || [];
     }
     /** 
-    * boolean are n_1 and n_2 neighbors
-    * @param {*} v_1 the node of the first node
-    * @param {*} v_2 the node of the second node
-    * @return {boolean} the node containing the value if found...
+    * Checks if 2 given nodes are neighbors in the graph
+    * @summary returns a boolean value true if the nodes are neighbors, false otherwise
+    * @param {*} node_1 first node
+    * @param {*} node_2 second node
+    * @return {boolean} true if the nodes are neighbors, false otherwise
     */
     are_neighbors(n_1 = null, n_2 = null) {
         if (!this.inner_graph.has(n_1) || !this.inner_graph.has(n_2)) return false;
